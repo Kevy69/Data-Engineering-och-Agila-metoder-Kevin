@@ -1,0 +1,2 @@
+hello from note_home
+current path is: /c/Users/Kevin/Documents/School/Code/Data-Engineering-och-Agila-metoder-Kevin/Exercises/01
