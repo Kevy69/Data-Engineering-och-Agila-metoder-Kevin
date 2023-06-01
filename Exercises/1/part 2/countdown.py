@@ -1,56 +1,52 @@
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, date
 
 
+events = {
+    "summer_break": "2023-06-09 15:00",
+    "lia_start": "2023-09-25 8:00",
+    "christmas": "2023-12-24",
+    "bellas_birthday": "2023-12-07",
+    "new_year": "2024-01-01",
+    "graduation_party": "2024-06-09 16:30"
+}
 
 
-# date_string = "2023-06-09 15:00"
-# date_format = "%Y-%m-%d %H:%M"
-# parsed_date = datetime.strptime(date_string, date_format)
+columns = ["years", "months", "days", "hours", "minutes", "seconds"]
 
-# year = parsed_date.year
-# month = parsed_date.month
-# day = parsed_date.day
-# hour = parsed_date.hour
-# minute = parsed_date.minute
-# second = parsed_date.second
+df = pd.DataFrame(columns=columns)
 
+for key, value in events.items():
 
+    date_string = value
+    date_format = "%Y-%m-%d"
 
+    try:
+        target_date = datetime.strptime(date_string, date_format + " %H:%M")
+    except ValueError:
+        target_date = datetime.strptime(date_string, date_format).date()
 
-# with open("countdown.log", "a") as f:
-#     f.write("")
+    today = date.today()
 
+    if isinstance(target_date, datetime):
+        time_diff = target_date - datetime.combine(today, datetime.min.time())
+    else:
+        time_diff = target_date - today
 
-# df = pd.DataFrame()
+    years = time_diff.days // 365
+    months = time_diff.days // 30
+    days = time_diff.days
+    hours = time_diff.seconds // 3600
+    minutes = (time_diff.seconds // 60) % 60
+    seconds = time_diff.seconds % 60
 
-# df["Saanvi"] = [96, 90]
+    time_diff_list = [str(years), str(months), str(days), str(hours), str(minutes), str(seconds)]
 
-# print(df.to_markdown())
-
-
-
-df = pd.DataFrame(
-    data={
-        "years": ["x", "x", "x", "x", "x", "x"],
-        "months": ["x", "x", "x", "x", "x", "x"],
-        "days": ["x", "x", "x", "x", "x", "x"],
-        "hours": ["x", "x", "x", "x", "x", "x"],
-        "minutes": ["x", "x", "x", "x", "x", "x"],
-        "seconds": ["x", "x", "x", "x", "x", "x"]
-    },
-    index=[
-        "summer_break",
-        "lia_start",
-        "christmas",
-        "bellas_birthday",
-        "new_year",
-        "graduation_party"
-    ]
-)
-
-print(df.to_markdown())
-
-
+    # Adding the first row with index 'a'
+    df.loc[key] = time_diff_list
+    
+    
+with open("countdown.log", "a") as f:
+    f.write(df.to_markdown())
 
 

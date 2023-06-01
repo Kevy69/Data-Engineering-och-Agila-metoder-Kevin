@@ -1,0 +1,6 @@
+services:
+  python:
+    #image: python:3.11
+    build: .
+    container_name: test
+    command: tail -F anything
