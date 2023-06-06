@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime, date
 
+print("ran")
 
 events = {
     "summer_break": "2023-06-09 15:00",
