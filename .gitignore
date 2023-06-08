@@ -127,6 +127,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+postgres.env
 
 # Spyder project settings
 .spyderproject
@@ -159,7 +160,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-
+*.DS_Store
 logs
 plugins
 config
